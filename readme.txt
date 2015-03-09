@@ -37,7 +37,7 @@ CRUDLab Facebook Like Box allows you to add Facebook like box to your wordpress 
 == Installation ==
 
 
-1. Upload wp-facebook-like-box folder to the `/wp-content/plugins/` directory
+1. Upload crudlab-facebook-like-box folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 
