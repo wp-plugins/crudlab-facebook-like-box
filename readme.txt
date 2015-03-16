@@ -33,6 +33,18 @@ CRUDLab Facebook Like Box allows you to add Facebook like box to your wordpress 
 * Set height and width
 * ON/OFF Indication
 
+> <strong> Docs & Support </strong> 
+
+> You can find [docs](http://bit.ly/1MFw2H5), [FAQ](https://wordpress.org/plugins/crudlab-facebook-like-box/faq/) and more detailed information about WP Like Button on [CRUDLab.com](http://crudlab.com/). If you were unable to find the answer to your question on the FAQ or in any of the documentation, you should check the [support forum](https://wordpress.org/support/plugin/crudlab-facebook-like-box) on WordPress.org. If you can't locate any topics that pertain to your particular issue, post a new topic for it
+
+> <strong> Recommended Plugins </strong>
+
+> The following are other recommended plugins by the author of WP Like Button.
+
+> * [WP Like Button](https://wordpress.org/plugins/wp-like-button/) - WP Like button allows you to add Facebook like button on your wordpress blog. 
+> * [WP Tweet Plus](https://wordpress.org/plugins/wp-tweet-plus/) - WP Tweet Plus allows you to add tweet button on your wordpress blog. You can add tweet Button homepage, specific pages and posts.
+> * [Jazz Popups](https://wordpress.org/plugins/jazz-popups/) - Jazz Popups allow you to add special announcements, messages, tips, offers on your homepage or every page of your wordpress website. You can add text, image or video.
+
 
 == Installation ==
 
