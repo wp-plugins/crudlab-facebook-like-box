@@ -3,7 +3,7 @@
   Plugin Name: CRUDLAB Facebook Like Box
   Description: CRUDLAB Facebook Like Box allows you to add Facebook like box to your wordpress blog.
   Author: <a href="http://crudlab.com/">CRUDLab</a>
-  Version: 1.0.0
+  Version: 1.0.1
  */
 require_once( ABSPATH . "wp-includes/pluggable.php" );
 add_action('admin_menu', 'wpfblbox_plugin_setup_menu');
@@ -11,6 +11,17 @@ add_action('admin_menu', 'wpfblbox_plugin_setup_menu');
 register_deactivation_hook(__FILE__, 'wpfblbox_uninstall_hook');
 
 add_shortcode('wpfblikebox', 'wp_fb_like_box');
+
+// Add settings link on plugin page
+function crudlab_fb_like_box_settings_link($links) { 
+  $settings_link = '<a href="admin.php?page=wp_facebook-like-box&edit=1">Settings</a>'; 
+  array_unshift($links, $settings_link); 
+  return $links; 
+}
+ 
+$plugin = plugin_basename(__FILE__); 
+add_filter("plugin_action_links_$plugin", 'crudlab_fb_like_box_settings_link' );
+
 
 function crudlab_wpfblikebox_abwb1()
 {
