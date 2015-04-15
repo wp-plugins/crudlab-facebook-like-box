@@ -5,7 +5,7 @@ Tags: Facebook, like box,  custom facebook likebox, Facebook, facebook badge, fa
 
 Requires at least: 3.8.5
 Tested up to: 4.1
-Stable tag: 1.0.1
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,9 @@ CRUDLab Facebook Like Box allows you to add Facebook like box to your wordpress 
 CRUDLab Facebook Like Box allows you to add Facebook like box to your wordpress blog. It allows webmasters to promote their Pages and embed a simple feed of content from a Page into their WordPress sites.
 
 = Features =
-
+* Developed according to Facebook Graph API 2.3
+* Display/Hide Fanpage cover photo
+* Ability to Share Fanpage
 * Two color schemes (Light and dark)
 * Display like box using shortcode
 * Display like box using php function
@@ -87,6 +89,11 @@ Please shoot us an email to crudlab[at]gmail.com and we'll get back to you withi
 
 
 == Changelog ==
+
+= 2.0.0 =
+* Developed according to Facebook Graph API 2.3
+* Display/Hide Fanpage cover photo
+* Ability to Share Fanpage
 
 = 1.0.1 =
 * Add Settings link in plugins page

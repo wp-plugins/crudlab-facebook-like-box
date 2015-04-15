@@ -3,7 +3,7 @@
   Plugin Name: CRUDLAB Facebook Like Box
   Description: CRUDLAB Facebook Like Box allows you to add Facebook like box to your wordpress blog.
   Author: <a href="http://crudlab.com/">CRUDLab</a>
-  Version: 1.0.1
+  Version: 2.0.0
  */
 require_once( ABSPATH . "wp-includes/pluggable.php" );
 add_action('admin_menu', 'wpfblbox_plugin_setup_menu');
@@ -11,6 +11,89 @@ add_action('admin_menu', 'wpfblbox_plugin_setup_menu');
 register_deactivation_hook(__FILE__, 'wpfblbox_uninstall_hook');
 
 add_shortcode('wpfblikebox', 'wp_fb_like_box');
+//--------------------------------------------------------/*
+/*class wp_my_plugin extends WP_Widget {
+    
+    // Controller
+function __construct() {
+	$widget_ops = array('classname' => 'my_widget_class', 'description' => __('Insert the plugin description here', 'wp_widget_plugin'));
+	$control_ops = array('width' => 400, 'height' => 300);
+	parent::WP_Widget(false, $name = __('Crudlab Facebook Like Box', 'wp_widget_plugin'), $widget_ops, $control_ops );
+}
+
+    // constructor
+    function wp_my_plugin() {
+        parent::WP_Widget(false, $name = __('Crudlab Facebook Like Box', 'wp_widget_plugin') );
+
+    }
+
+    // widget form creation
+    // widget form creation
+    function form($instance) {
+
+// Check values
+        if ($instance) {
+            $title = esc_attr($instance['title']);
+            $text = esc_attr($instance['text']);
+            $textarea = esc_textarea($instance['textarea']);
+        } else {
+            $title = '';
+            $text = '';
+            $textarea = '';
+        }
+        ?>
+
+        <p>
+            <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Crudlab Facebook Like box', 'wp_widget_plugin'); ?></label>
+        </p>
+        <?php
+    }
+
+    // widget update
+    // update widget
+    function update($new_instance, $old_instance) {
+        $instance = $old_instance;
+        // Fields
+        $instance['title'] = strip_tags($new_instance['title']);
+        $instance['text'] = strip_tags($new_instance['text']);
+        $instance['textarea'] = strip_tags($new_instance['textarea']);
+        return $instance;
+    }
+
+    // widget display
+    // display widget
+    function widget($args, $instance) {
+        extract($args);
+        // these are the widget options
+        /*$title = apply_filters('widget_title', $instance['title']);
+        $text = $instance['text'];
+        $textarea = $instance['textarea'];
+        echo $before_widget;
+        // Display the widget
+        echo '<div class="widget-text wp_widget_plugin_box">';
+
+        // Check if title is set
+        if ($title) {
+            echo $before_title . $title . $after_title;
+        }
+
+        // Check if text is set
+        if ($text) {
+            echo '<p class="wp_widget_plugin_text">' . $text . '</p>';
+        }
+        // Check if textarea is set
+        if ($textarea) {
+            echo '<p class="wp_widget_plugin_textarea">' . $textarea . '</p>';
+        }
+        echo '</div>';*/
+        /*echo wp_fb_like_box();
+    }
+
+}
+
+// register widget
+add_action('widgets_init', create_function('', 'return register_widget("wp_my_plugin");'));*/
+//--------------------------------------------------------
 
 // Add settings link on plugin page
 function crudlab_fb_like_box_settings_link($links) { 
@@ -62,15 +145,14 @@ function wpfblbox_header() {
     if ($status != 0) {
         ?>
         <div id="fb-root"></div>
-        <script>(function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id))
-                    return;
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
+        <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.3&appId=130169883726238";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
         <?php
     }
 }
@@ -101,7 +183,13 @@ function wp_fb_like_box($content = NULL) {
     $posts = $myrows[0]->posts;
     $users = $myrows[0]->users;
     $when_display = $myrows[0]->when_display;
+    $cover_photo = $myrows[0]->cover_photo;
     $mobile = $myrows[0]->mobile;
+    if($cover_photo == 1){
+        $cover_photo = "true";
+    }else{
+        $cover_photo = "false";
+    }
     if ($faces == 1) {
         $faces = 'true';
     } else {
@@ -130,24 +218,27 @@ function wp_fb_like_box($content = NULL) {
 
             if (!isset($_COOKIE['crud_fblbox_my_cookie'])) {
                 if ($content != NULL) {
-                    $fb .= '<script>jQuery(document).ready(function () {if(true){jQuery.jazzPopup.open({ items: { src: "#test-popup" }, type: "", removalDelay: 500,closeOnBgClick: false, closeMarkup: "<img class=\'mfp-close\' src=\'' . plugins_url("/images/close.png", __FILE__) . '\'>", callbacks: {beforeOpen: function() {this.st.image.markup = this.st.image.markup.replace("mfp-figure", "mfp-figure mfp-with-anim");this.st.mainClass = "fade" ;}}  });}})</script>';
+                    $fb .= '<script>jQuery(document).ready(function () {if(true){jQuery.jazzPopup.open({ items: { src: "#test-popup", crox: "'.plugins_url("/images/crox.png", __FILE__).'" }, type: "", removalDelay: 500,closeOnBgClick: false, closeMarkup: "<img class=\'mfp-close\' src=\'' . plugins_url("/images/close.png", __FILE__) . '\'>", callbacks: {beforeOpen: function() {this.st.image.markup = this.st.image.markup.replace("mfp-figure", "mfp-figure mfp-with-anim");this.st.mainClass = "fade" ;}}  });}})</script>';
                     $fb .= '<style>.wpfblikebox .fb_iframe_widget span{width:' . $width . 'px !important;}</style>';
                     $fb .= '<div id="test-popup" class="white-popup mfp-with-anim mfp-hide" style="max-width:' . $width . 'px; width:' . $width . 'px;">';
                 }
-                $fb .= '<div class="fb-like-box" data-href="' . $actual_link . '" data-height="' . $height . '" data-width="' . $width . '" data-colorscheme="' . $color . '" data-show-faces="' . $faces . '" data-header="' . $header . '" data-stream="' . $posts . '" data-show-border="' . $border . '"></div>';
+                //$fb .= '<div class="fb-like-box" data-href="' . $actual_link . '" data-height="' . $height . '" data-width="' . $width . '" data-colorscheme="' . $color . '" data-show-faces="' . $faces . '" data-header="' . $header . '" data-stream="' . $posts . '" data-show-border="' . $border . '"></div>';
+                $fb .= '<div class="fb-page" data-href="' . $actual_link . '" data-height="' . $height . '" data-width="' . $width . '" data-hide-cover="'.$cover_photo.'" data-show-facepile="' . $faces . '" data-show-posts="' . $posts . '"><div class="fb-xfbml-parse-ignore"><blockquote cite="' . $actual_link . '"></blockquote></div></div>';
                 if ($content != NULL) {
                     $fb .= '</div>';
                 }
             }
         } else {
             if ($content != NULL) {
-                $fb .= '<script>jQuery(document).ready(function () {if(true){jQuery.jazzPopup.open({ items: { src: "#test-popup" }, type: "", removalDelay: 500,closeOnBgClick: false, closeMarkup: "<img class=\'mfp-close\' src=\'' . plugins_url("/images/close.png", __FILE__) . '\'>", callbacks: {beforeOpen: function() {this.st.image.markup = this.st.image.markup.replace("mfp-figure", "mfp-figure mfp-with-anim");this.st.mainClass = "fade" ;}}  });}})</script>';
+                $fb .= '<script>jQuery(document).ready(function () {if(true){jQuery.jazzPopup.open({ items: { src: "#test-popup" , crox: "'.plugins_url("/images/crox.png", __FILE__).'" }, type: "", removalDelay: 500,closeOnBgClick: false, closeMarkup: "<img class=\'mfp-close\' src=\'' . plugins_url("/images/close.png", __FILE__) . '\'>", callbacks: {beforeOpen: function() {this.st.image.markup = this.st.image.markup.replace("mfp-figure", "mfp-figure mfp-with-anim");this.st.mainClass = "fade" ;}}  });}})</script>';
                 $fb .= '<style>.wpfblikebox .fb_iframe_widget span{width:' . $width . 'px !important;}</style>';
                 $fb .= '<div id="test-popup" class="white-popup mfp-with-anim mfp-hide wpfblikebox" style="max-width:' . $width . 'px; width:' . $width . 'px;">';
             }
-            $fb .= '<div class="fb-like-box" data-href="' . $actual_link . '" data-height="' . $height . '" data-width="' . $width . '" data-colorscheme="' . $color . '" data-show-faces="' . $faces . '" data-header="' . $header . '" data-stream="' . $posts . '" data-show-border="' . $border . '"></div>';
+            //$fb .= '<div class="fb-like-box" data-href="' . $actual_link . '" data-height="' . $height . '" data-width="' . $width . '" data-colorscheme="' . $color . '" data-show-faces="' . $faces . '" data-header="' . $header . '" data-stream="' . $posts . '" data-show-border="' . $border . '" hide_cover="'.$cover_photo.'"></div>';
+            
+                $fb .= '<div class="fb-page" data-href="' . $actual_link . '" data-height="' . $height . '" data-width="' . $width . '" data-hide-cover="'.$cover_photo.'" data-show-facepile="' . $faces . '" data-show-posts="' . $posts . '"><div class="fb-xfbml-parse-ignore"><blockquote cite="' . $actual_link . '"></blockquote></div></div>';
             if ($content != NULL) {
-                $fb .= '</div>';
+                $fb .= '<img class="jazzclosebutton" src="'.plugins_url("/images/crox.png", __FILE__).'" onclick="jQuery.jazzPopup.close();"></div>';
             }
         }
     }
@@ -230,6 +321,7 @@ if (isset($_REQUEST['update_wpfblikebox'])) {
     $border = @mysql_real_escape_string($_REQUEST['border']);
     $posts = @mysql_real_escape_string($_REQUEST['posts']);
     $users = @mysql_real_escape_string($_REQUEST['users']);
+    $cover_photo = @mysql_real_escape_string($_REQUEST['cover_photo']);
 
     ($edit_id == 0 || $edit_id == '') ? $edit_id = 1 : '';
     $ul = '0';
@@ -271,6 +363,7 @@ if (isset($_REQUEST['update_wpfblikebox'])) {
         'users' => $users,
         'except_ids' => $except_ids,
         'color' => $color,
+        'cover_photo' => $cover_photo,
         'user_id' => $user_id,
         'active' => 1,
         'faces' => $faces,
@@ -560,13 +653,14 @@ function wpfblbox_init() {
                                                     <label>Width</label>
                                                 </td>
                                                 <td>
+                                                    <div style="width:100%; display: none; color: #f00;" id="width_error">The Minimum width is 280px & Max is 500px</div>
                                                     <input onblur="if (!isNumeric(this.value)) {
                                                                     alert('Only digits allowed');
                                                                     this.focus();
                                                                 } else {
                                                                     wpfblikebox_func()
-                                                                }" type="text" id="width" placeholder="" style="float: left;" name="width" value="<?php echo $myrows[0]->width; ?>" class="wpfblbox_form-control">
-    <!--                                                    <img src="<?php echo plugins_url("/images/help.png", __FILE__) ?>" style="float:right" help="" title="help">-->
+                                                                }" type="text" id="width" placeholder="" style="float: left; width: 90%;" name="width" value="<?php echo $myrows[0]->width; ?>" class="wpfblbox_form-control">
+                                                               <img src="<?php echo plugins_url("/images/help.png", __FILE__) ?>" style="float:right" help="" title="help">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -574,14 +668,16 @@ function wpfblbox_init() {
                                                     <label>Height</label>
                                                 </td>
                                                 <td>
+                                                    <div style="width:100%; display: none; color: #f00" id="height_error">The Minimum height of the Like Box is 130px</div>
                                                     <div class="wpfblbox_form-group">
-                                                        <input onblur="if (!isNumeric(this.value)) {
+                                                        <input style="width: 90%; float: left;" onblur="if (!isNumeric(this.value)) {
                                                                         alert('Only digits allowed');
                                                                         this.focus();
                                                                     } else {
                                                                         wpfblikebox_func()
-                                                                    }" type="text" id="height" placeholder=""  name="height" value="<?php echo $myrows[0]->height; ?>" class="wpfblbox_form-control">
+                                                                    }" type="text" id="height" placeholder=""  name="height" value="<?php echo $myrows[0]->height; ?>" class="wpfblbox_form-control" >
                                                     </div>
+                                                    <img src="<?php echo plugins_url("/images/help.png", __FILE__) ?>" style="float:right" help1="" title="help1">
                                                 </td>
                                             </tr>
 
@@ -612,28 +708,32 @@ function wpfblbox_init() {
                                                 </td>
                                                 <td></td>
                                                 <td> 
-                                                    <div class="wpfblbox_form-group" style="text-align: center">
+                                                    <div class="wpfblbox_form-group" style="text-align: center; display: none">
                                                         <input onchange=" wpfblikebox_func()" <?php
                                                         if (@$myrows[0]->header == 1) {
                                                             echo 'checked';
                                                         }
                                                         ?>  type="checkbox" style="float:left" value="1" name="header" id="headers"><label style="float:left; line-height: 10px; padding-left: 10px;" for="headers">Show Header</label>
                                                     </div>
+                                                    <div class="wpfblbox_form-group" style="text-align: center;">
+                                                        <input onchange=" wpfblikebox_func()" <?php
+                                                        if (@$myrows[0]->cover_photo == 1) {
+                                                            echo 'checked';
+                                                        }
+                                                        ?> type="checkbox" style="float:left" value="1" name="cover_photo" id="cover_photo"><label style="float:left; line-height: 10px; padding-left: 10px;" for="cover_photo">Hide Cover Photo</label>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td></td>
                                                 <td>
-                                                    <div class="wpfblbox_form-group" style="text-align: center;">
+                                                    <div class="wpfblbox_form-group" style="text-align: center; display: none;">
                                                         <input onchange=" wpfblikebox_func()" <?php
                                                         if (@$myrows[0]->border == 1) {
                                                             echo 'checked';
                                                         }
                                                         ?> type="checkbox" style="float:left" value="1" name="border" id="border"><label style="float:left; line-height: 10px; padding-left: 10px;" for="border">Show Border</label>
                                                     </div>
-                                                </td>
-                                                <td></td>
-                                                <td> 
                                                     <div class="wpfblbox_form-group" style="text-align: center">
                                                         <input onchange=" wpfblikebox_func()" <?php
                                                         if (@$myrows[0]->posts == 1) {
@@ -641,6 +741,20 @@ function wpfblbox_init() {
                                                         }
                                                         ?>  type="checkbox" style="float:left" value="1" name="posts" id="showposts"><label style="float:left; line-height: 10px; padding-left: 10px;" for="showposts">Show Posts</label>
                                                     </div>
+                                                </td>
+                                                <td></td>
+                                                <td> 
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    
+                                                </td>
+                                                <td></td>
+                                                <td> 
+                                                    &nbsp;
                                                 </td>
                                             </tr>
                                             <tr>
@@ -728,12 +842,13 @@ function wpfblbox_init() {
         </div>
     </div>
     </form> 
+    
     <?php
 }
 
 //-------------------------------------- database --------------------
 global $crudlab_wpfblbox_db_version;
-$crudlab_wpfblbox_db_version = '1.0';
+$crudlab_wpfblbox_db_version = '1.1';
 
 function wpfblbox_install() {
     global $wpdb;
@@ -764,6 +879,7 @@ function wpfblbox_install() {
                 header int,
                 border int,
                 posts int,
+                cover_photo int,
                 status int, 
                 user_id int,
                 active int,
@@ -812,8 +928,8 @@ function wpfblbox_install_data() {
             'last_modified' => current_time('mysql'),
             'status' => 1,
             'display' => 7,
-            'width' => 300,
-            'height' => 556,
+            'width' => 340,
+            'height' => 500,
             'except_ids' => '',
             'fbpage' => 'https://www.facebook.com/wordpress',
             'when_display' => 1,
@@ -821,6 +937,7 @@ function wpfblbox_install_data() {
             'delay' => 0,
             'mobile' => 0,
             'color' => 'light',
+            'cover_photo' => 0,        
             'faces' => 1,
             'header' => 1,
             'border' => 1,
