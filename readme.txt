@@ -3,8 +3,8 @@ Contributors: amirk27
 Donate link: https://www.2checkout.com/checkout/purchase?sid=102444448&quantity=1&product_id=1
 Tags: Facebook, like box,  custom facebook likebox, Facebook, facebook badge, facebook button, facebook connect, facebook facepile, Facebook fan page, facebook integration, facebook like, facebook like box, facebook like box in PopUp, facebook like box shortcode, facebook like box shortcodes, facebook like box widget, facebook like button, Facebook like widget, facebook likebox, facebook likebox widget, facebook meta, facebook meta tag, Facebook Open Graph, Facebook Page, facebook platform, facebook plugin, facebook recommend, facebook share, facebook sidebar, facebook style, facebook wall, Facebook Widget, fb like box, friends, Like, like box, like box facebook, like box sidebox, like box widget, likebox, meta, nice facebook like box, open graph, page, plugin, post to facebook, rt facebook like box, social, Social Plugins, social profiles, social share, social sidebar, wordpress facebook like box, facebook social plugin,
 
-Requires at least: 3.8.5
-Tested up to: 4.1
+Requires at least: 3.8
+Tested up to: 4.2
 Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
