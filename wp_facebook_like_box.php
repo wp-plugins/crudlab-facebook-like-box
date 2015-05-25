@@ -3,7 +3,7 @@
   Plugin Name: CRUDLAB Facebook Like Box
   Description: CRUDLAB Facebook Like Box allows you to add Facebook like box to your wordpress blog.
   Author: <a href="http://crudlab.com/">CRUDLab</a>
-  Version: 2.0.0
+  Version: 2.0.1
  */
 require_once( ABSPATH . "wp-includes/pluggable.php" );
 add_action('admin_menu', 'wpfblbox_plugin_setup_menu');
@@ -301,27 +301,27 @@ if (isset($_REQUEST['update_wpfblikebox'])) {
     $display = $_REQUEST['display'];
     $display_val = 0;
     foreach ($display as $d) {
-        $display_val += @mysql_real_escape_string($d);
+        $display_val += @sanitize_text_field($d);
     }
     $except_ids = (isset($_REQUEST['except_ids'])) ? $_REQUEST['except_ids'] : '';
     if ($except_ids != NULL) {
         $except_ids = implode(', ', $except_ids);
     }
-    $color = @mysql_real_escape_string($_REQUEST['color']);
-    $height = @mysql_real_escape_string($_REQUEST['height']);
-    $width = @mysql_real_escape_string($_REQUEST['width']);
-    $mobile = @mysql_real_escape_string($_REQUEST['mobile']);
-    $delay = @mysql_real_escape_string($_REQUEST['delay']);
-    $when_display = @mysql_real_escape_string($_REQUEST['when_display']);
-    $fbpage = @mysql_real_escape_string($_REQUEST['fbpage']);
-    $mobile = @mysql_real_escape_string($_REQUEST['mobile']);
-    $edit_id = @mysql_real_escape_string($_REQUEST['edit']);
-    $faces = @mysql_real_escape_string($_REQUEST['faces']);
-    $header = @mysql_real_escape_string($_REQUEST['header']);
-    $border = @mysql_real_escape_string($_REQUEST['border']);
-    $posts = @mysql_real_escape_string($_REQUEST['posts']);
-    $users = @mysql_real_escape_string($_REQUEST['users']);
-    $cover_photo = @mysql_real_escape_string($_REQUEST['cover_photo']);
+    $color = @sanitize_text_field($_REQUEST['color']);
+    $height = @sanitize_text_field($_REQUEST['height']);
+    $width = @sanitize_text_field($_REQUEST['width']);
+    $mobile = @sanitize_text_field($_REQUEST['mobile']);
+    $delay = @sanitize_text_field($_REQUEST['delay']);
+    $when_display = @sanitize_text_field($_REQUEST['when_display']);
+    $fbpage = @sanitize_text_field($_REQUEST['fbpage']);
+    $mobile = @sanitize_text_field($_REQUEST['mobile']);
+    $edit_id = @sanitize_text_field($_REQUEST['edit']);
+    $faces = @sanitize_text_field($_REQUEST['faces']);
+    $header = @sanitize_text_field($_REQUEST['header']);
+    $border = @sanitize_text_field($_REQUEST['border']);
+    $posts = @sanitize_text_field($_REQUEST['posts']);
+    $users = @sanitize_text_field($_REQUEST['users']);
+    $cover_photo = @sanitize_text_field($_REQUEST['cover_photo']);
 
     ($edit_id == 0 || $edit_id == '') ? $edit_id = 1 : '';
     $ul = '0';
